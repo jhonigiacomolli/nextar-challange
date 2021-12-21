@@ -1,0 +1,20 @@
+.container {
+    max-width: 800px;
+    width: 100%;
+    .maintenance {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+
+        span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.875rem;
+        }
+        h2 {
+            font-size: 1rem;
+        }
+    }
+}
