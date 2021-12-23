@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    width: 100%;
+    gap: 10px;
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        
+        p {
+            color: var(--text90);
+            margin: 5px 0;
+            font-size: 0.875rem;
+        }
+        select {
+            width: 100%;
+            min-width: 125px;
+            padding: 10px;
+            background-color: var(--background100);
+        }
+        &.agent {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+}

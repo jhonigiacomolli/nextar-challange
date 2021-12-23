@@ -14,7 +14,8 @@ export const Maintenances = ({ type }: MaintenancesProps) => {
             <div>
                 {
                     maintenances.map(maint => (
-                        maint.type === type && (
+                        maint.type === type && 
+                        maint.status === 'Aberta' && (
                             <div key={maint.id}>
                                 <h3>{maint.owner}</h3>
                                 <h4>{maint.equipment}</h4>

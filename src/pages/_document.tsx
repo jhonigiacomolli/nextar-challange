@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
                 <Head>
                     <meta charSet="UTF-8" />
                     <title>
-                        Nextar Challange
+                        Nextar Maintenance System
                     </title>
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="description" content="Desafio Tech Nextar" />

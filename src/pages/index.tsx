@@ -1,32 +1,31 @@
-import { AgentMaintenances } from 'components/maintanence/agent-maintenance'
+import { AgentMaintenances } from 'components/maintenance-agent'
 import { Maintenances } from 'components/maintanence/maintenances'
 import { useGlobalContext } from 'context'
-import { baseUrl } from 'global/api'
-import { revertDateString } from 'global/functions'
 import type { NextPage } from 'next'
 import { useEffect } from 'react'
 import styles from '../styles/home.module.scss'
+import { Logomarca } from 'components/logo'
+import { getAgents, getMaintenances } from 'global/api'
 
 const Home: NextPage = () => {
-  const { loadMaintenances } = useGlobalContext()
+  const { loadMaintenances, loadAgents } = useGlobalContext()
 
-  const getMaintenances = async () => {
-    const result = await fetch(baseUrl, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await result.json()
-    loadMaintenances(data)
+  const getData = async () => {
+    const maintenances  = await getMaintenances()
+    const agents = await getAgents()
+
+    loadMaintenances(maintenances)
+    loadAgents(agents)
   }
-  
+
   useEffect(() => {
-    getMaintenances()
+    getData()
   }, [])
 
   return (
     <div className={styles.container}>
-      <AgentMaintenances agent='Jhoni Giacomolli' />
+      <Logomarca />
+      <AgentMaintenances />
       <div className={styles.maintenances}>
         <Maintenances type='correction' />
         <Maintenances type='preventive' />

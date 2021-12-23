@@ -1,6 +1,19 @@
 .container {
     max-width: 800px;
     width: 100%;
+    .selectedAgent {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+
+        p {
+            font-size: 0.875rem;
+        }
+        h1 {
+            font-size: 1.2rem;
+        }
+    }
     .maintenance {
         display: flex;
         align-items: center;
