@@ -1,10 +1,12 @@
-import { TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType } from "global/types";
+import { TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation } from "global/types";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type GlobalContextProviderProps = {
     children: ReactNode
 }
 type UpdateFilter = { 
+    entries?: number
+    ordenation?: TYPE_Ordenation
     agent?: TYPE_Agent
     status?: TYPE_MaintenanceStatus
     type?: TYPE_MaintenanceType 
@@ -25,9 +27,11 @@ type GlobalContextProps = {
 }
 
 const initialFilterParams: TYPE_FilterParams = {
+    entries: 5,
+    ordenation: 'old',
     agent: { id: 0, agent: '' },
     type: 'correction',
-    status: 'Aberta'
+    status: 'Aberta',
 }
 export const GlobalContext = createContext({} as GlobalContextProps)
 

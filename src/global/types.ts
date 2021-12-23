@@ -2,6 +2,8 @@ export type TYPE_MaintenanceType = 'correction' | 'preventive'
 
 export type TYPE_MaintenanceStatus = 'Aberta' | 'Fechada'
 
+export type TYPE_Ordenation = 'recent' | 'old'
+
 export type Type_Maintenance = {
     id: number
     type: TYPE_MaintenanceType
@@ -20,4 +22,6 @@ export type TYPE_FilterParams = {
     agent: TYPE_Agent
     type: TYPE_MaintenanceType
     status: TYPE_MaintenanceStatus
+    entries: number
+    ordenation: TYPE_Ordenation
 }

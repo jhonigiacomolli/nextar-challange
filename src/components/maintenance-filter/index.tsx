@@ -1,5 +1,5 @@
 import { useGlobalContext } from 'context'
-import { TYPE_Agent, TYPE_MaintenanceStatus, TYPE_MaintenanceType } from 'global/types'
+import { TYPE_Agent, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation } from 'global/types'
 import { ChangeEvent, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 
@@ -8,7 +8,17 @@ export const Filter = () => {
     const [agent, setAgent] = useState<TYPE_Agent>(filterParams.agent)
     const [type, setType] = useState<TYPE_MaintenanceType>(filterParams.type)
     const [status, setStatus] = useState<TYPE_MaintenanceStatus>(filterParams.status)
+    const [entries, setEntries] = useState(filterParams.entries)
+    const [ordenation, setOrdenation] = useState<TYPE_Ordenation>(filterParams.ordenation)
 
+    const handleChangeEntries = (event: ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value
+        setEntries(Number(value))
+    }
+    const handleChangeOrdenation = (event: ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value
+        setOrdenation(value as TYPE_Ordenation)
+    }
     const handleChangeAgent = (event: ChangeEvent<HTMLSelectElement>) => {
         const id = event.target.value
         const agent = agents.filter(ag => ag.id === Number(id))[0]
@@ -28,12 +38,27 @@ export const Filter = () => {
         updateFilterParams({
             agent,
             type,
-            status
+            status,
+            entries,
+            ordenation
         })
-    }, [agent])
+    }, [agent, type, status, entries, ordenation])
 
     return (
         <div className={styles.container}>
+            <div className={`${styles.filter} ${styles.agent}`}>
+                <p>Agente:</p>
+                <select name="select-maintenance-agent" id="select-maintenance-agent" onChange={handleChangeAgent}>
+                    <option value="empty">Selecione...</option>
+                    {
+                        agents.map(agent => (
+                            <option key={agent.id} value={agent.id}>
+                                {agent.agent}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
             <div className={styles.filter}>
                 <p>Tipo:</p>
                 <select name="select-maintenance-type" id="select-maintenance-type" onChange={handleChangeType}>
@@ -48,17 +73,20 @@ export const Filter = () => {
                     <option value="Fechada">Fechada</option>
                 </select>
             </div>
-            <div className={`${styles.filter} ${styles.agent}`}>
-                <p>Agente:</p>
-                <select name="select-maintenance-agent" id="select-maintenance-agent" onChange={handleChangeAgent}>
-                    <option value="empty">Selecione...</option>
-                    {
-                        agents.map(agent => (
-                            <option key={agent.id} value={agent.id}>
-                                {agent.agent}
-                            </option>
-                        ))
-                    }
+            <div className={styles.filter}>
+                <p>Ordenação:</p>
+                <select name="select-maintenance-ordenation" id="select-maintenance-ordenation" onChange={handleChangeOrdenation}>
+                    <option value="old">Mais antigas</option>
+                    <option value="recent">Mais recentes</option>
+                </select>
+            </div>
+            <div className={styles.filter}>
+                <p>Itens Exibidos:</p>
+                <select name="select-maintenance-entries" id="select-maintenance-entries" onChange={handleChangeEntries}>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
                 </select>
             </div>
         </div>

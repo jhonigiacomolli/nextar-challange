@@ -1,4 +1,4 @@
-import { AgentMaintenances } from 'components/maintenance-agent'
+import { AgentMaintenances } from 'components/maintenance-list-agent'
 import { Maintenances } from 'components/maintanence/maintenances'
 import { useGlobalContext } from 'context'
 import type { NextPage } from 'next'

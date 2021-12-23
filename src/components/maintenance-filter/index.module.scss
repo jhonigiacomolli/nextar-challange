@@ -18,13 +18,11 @@
         }
         select {
             width: 100%;
-            min-width: 125px;
             padding: 10px;
             background-color: var(--background100);
         }
         &.agent {
-            width: 100%;
-            max-width: 300px;
+           flex: 1;
         }
     }
 }

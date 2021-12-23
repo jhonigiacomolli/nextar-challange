@@ -1,0 +1,46 @@
+.container {
+    max-width: 800px;
+    width: 100%;
+    
+    .content {
+        height: 270px;
+        margin: 10px 0;
+        padding: 10px 20px;
+        overflow-y: scroll;
+        background-color: var(--background100);
+    
+        .maintenance {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 5px 0;
+            border-bottom: 1px solid var(--background90);
+
+            &.header {
+                margin: -10px -20px 0 -20px;
+                padding: 10px 20px;
+                font-weight: 600;
+                color: var(--detach100);
+                background-color: var(--background90);
+                span {
+                    font-size: 0.875rem;
+                }
+            }
+    
+            span {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 1rem;
+            }
+            .equipment {
+                flex: 1.5;
+            }
+            .date {
+                flex: 0.5;
+            }
+        }
+    }
+}
