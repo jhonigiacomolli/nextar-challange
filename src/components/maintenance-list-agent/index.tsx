@@ -3,14 +3,14 @@ import { useGlobalContext } from 'context'
 import { revertDateString } from 'global/functions'
 import { Type_Maintenance } from 'global/types'
 import { useEffect, useState } from 'react'
+import agentIcon from 'assets/agent-icon.svg'
+import Image from 'next/image'
 import styles from './index.module.scss'
 
 export const AgentMaintenances = () => {
     const { filterParams, maintenances } = useGlobalContext()
     const [agentMaintenances, setAgentMaintenances] = useState<Type_Maintenance[]>([])
-    
-    console.log(filterParams);
-    
+
     useEffect(() => {
         setAgentMaintenances(
             [...maintenances]
@@ -36,7 +36,11 @@ export const AgentMaintenances = () => {
 
     return (
         <div className={styles.container}>
-            <Filter />
+            <div className={styles.title}>
+                <Image src={agentIcon} alt='icon' width={50} height={50} />
+                <h1>Agente</h1>
+            </div>
+            <Filter kind='agent-list'/>
             <div className={styles.content}>
                 <div className={`${styles.maintenance} ${styles.header}`}>
                     <span>Área</span>

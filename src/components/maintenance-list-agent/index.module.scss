@@ -1,7 +1,16 @@
 .container {
-    max-width: 800px;
+    max-width: var(--boxed-size);
     width: 100%;
     
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 20px; 
+        h1 {
+            font-size: 2rem;
+        }
+    }
+
     .content {
         height: 270px;
         margin: 10px 0;
@@ -21,6 +30,8 @@
                 margin: -10px -20px 0 -20px;
                 padding: 10px 20px;
                 font-weight: 600;
+                position: sticky;
+                top: -10px;
                 color: var(--detach100);
                 background-color: var(--background90);
                 span {
@@ -33,7 +44,7 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                font-size: 1rem;
+                font-size: 0.875rem;
             }
             .equipment {
                 flex: 1.5;

@@ -24,4 +24,5 @@ export type TYPE_FilterParams = {
     status: TYPE_MaintenanceStatus
     entries: number
     ordenation: TYPE_Ordenation
+    search: string
 }

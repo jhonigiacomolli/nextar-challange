@@ -12,17 +12,34 @@
         justify-content: center;
         
         p {
-            color: var(--text90);
+            color: var(--text80);
             margin: 5px 0;
             font-size: 0.875rem;
         }
-        select {
+        select, input {
             width: 100%;
             padding: 10px;
             background-color: var(--background100);
         }
         &.agent {
-           flex: 1;
+            flex: 1;
+        }
+        &.search {
+            flex: 1;
+            .icon {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: center;
+
+                > span {
+                    margin: -28px 10px 8px -10px !important;
+                }
+                img {
+                    opacity: 0.3;
+                }
+            }
         }
     }
 }

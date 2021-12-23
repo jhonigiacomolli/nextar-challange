@@ -26,10 +26,8 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Logomarca />
       <AgentMaintenances />
-      <div className={styles.maintenances}>
-        <Maintenances type='correction' />
-        <Maintenances type='preventive' />
-      </div>
+      <Maintenances type='correction' displayFilter />
+      <Maintenances type='preventive' />
     </div>
   )
 }

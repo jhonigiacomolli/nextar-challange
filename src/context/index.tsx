@@ -10,6 +10,7 @@ type UpdateFilter = {
     agent?: TYPE_Agent
     status?: TYPE_MaintenanceStatus
     type?: TYPE_MaintenanceType 
+    search?: string
 }
 type GlobalContextProps = {
     filterParams: TYPE_FilterParams
@@ -32,6 +33,7 @@ const initialFilterParams: TYPE_FilterParams = {
     agent: { id: 0, agent: '' },
     type: 'correction',
     status: 'Aberta',
+    search: '',
 }
 export const GlobalContext = createContext({} as GlobalContextProps)
 
