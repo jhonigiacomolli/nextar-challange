@@ -52,9 +52,15 @@ export const AgentMaintenances = () => {
                     ? (
                         <div>
                             {
-                                agentMaintenances.map((maint, index) => (
+                                agentMaintenances.map((maint, index, array) => (
                                     index < filterParams.entries &&  (
-                                        <div key={index + maint.id} className={styles.maintenance}>
+                                        <div 
+                                            key={index + maint.id} 
+                                            className={`
+                                                ${styles.maintenance} 
+                                                ${( array.length < 1 || (index === filterParams.entries -1)) ? '' : styles.underline}
+                                            `}
+                                        >
                                             <span>Área{maint.area}</span>
                                             <span className={styles.equipment}>{maint.equipment}</span>
                                             <span className={styles.date}>{maint.date}</span>
@@ -64,7 +70,7 @@ export const AgentMaintenances = () => {
                             }
                         </div>
                     )
-                    : 'Não existem dados para serem exibidos'
+                    : <p>Não existem dados para serem exibidos</p>
                 }
             </div>
         </div>

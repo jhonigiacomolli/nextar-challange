@@ -1,4 +1,5 @@
-import { TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation } from "global/types";
+import { createAgent, createEquipment, editAgent, editEquipment, removeAgent, removeEquipment } from "global/api";
+import { TYPE_Equipments, TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation } from "global/types";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type GlobalContextProviderProps = {
@@ -25,6 +26,11 @@ type GlobalContextProps = {
     newMaintenances: (maintenance: Type_Maintenance) => void
     updateMaintenances: (maintenance: Type_Maintenance) => void
     deleteMaintenances: (maintenance: Type_Maintenance) => void
+    equipments: TYPE_Equipments[]
+    loadEquipments: (equipement: TYPE_Equipments[]) => void
+    newEquipment: (equipement: TYPE_Equipments) => void
+    updateEquipment: (equipement: TYPE_Equipments) => void
+    deleteEquipment: (equipement: TYPE_Equipments) => void
 }
 
 const initialFilterParams: TYPE_FilterParams = {
@@ -41,23 +47,54 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
     const [filterParams, setSetFilterParams] = useState<TYPE_FilterParams>(initialFilterParams)
     const [agents, setAgents] = useState<TYPE_Agent[]>([])
     const [maintenances, setMaintenances] = useState<Type_Maintenance[]>([])
+    const [equipments, setEquipments] = useState<TYPE_Equipments[]>([])
 
     //Agents
     const loadAgents = (agents: TYPE_Agent[]) => {
         setAgents(agents)
     }
-    const newAgents = (agents: TYPE_Agent) => {
-        setAgents(old => [
+    const newAgents = async (agent: TYPE_Agent) => {
+        const result = await createAgent(agent)
+        const newAgent: TYPE_Agent = await result.json()
+
+        result.status === 201 && setAgents(old => [
             ...old,
-            agents
+            newAgent
         ])
     }
-    const updateAgents = (agents: TYPE_Agent) => {
-        setAgents(old => old.map(item => item.id === agents.id ? agents : item 
+    const updateAgents = async (agent: TYPE_Agent) => {
+        const result = await editAgent(agent)
+        
+        result.status === 200 && setAgents(old => old.map(item => item.id === agent.id ? agent : item 
         ))
     }
-    const deleteAgents = (agents: TYPE_Agent) => {
-        setAgents(old => old.filter(item => item.id !== agents.id))
+    const deleteAgents = async (agents: TYPE_Agent) => {
+        const result = await removeAgent(agents.id)        
+        result.status === 200 && setAgents(old => old.filter(item => item.id !== agents.id))
+    }
+
+    //Equipments
+    const loadEquipments = (equipment: TYPE_Equipments[]) => {
+        setEquipments(equipment)
+    }
+    const newEquipment = async (equipment: TYPE_Equipments) => {
+        const result = await createEquipment(equipment)
+        const newEquipment: TYPE_Equipments = await result.json()
+
+        result.status === 201 && setEquipments(old => [
+            ...old,
+            newEquipment
+        ])
+    }
+    const updateEquipment = async (equipment: TYPE_Equipments) => {
+        const result = await editEquipment(equipment)
+        
+        result.status === 200 && setEquipments(old => old.map(item => item.id === equipment.id ? equipment : item 
+        ))
+    }
+    const deleteEquipment = async (equipment: TYPE_Equipments) => {
+        const result = await removeEquipment(equipment.id)        
+        result.status === 200 && setEquipments(old => old.filter(item => item.id !== equipment.id))
     }
 
     //Maintenances
@@ -100,6 +137,11 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
             newMaintenances,
             updateMaintenances,
             deleteMaintenances, 
+            equipments,
+            loadEquipments,
+            newEquipment,
+            updateEquipment,
+            deleteEquipment,
         }} >
             { children }
         </GlobalContext.Provider>

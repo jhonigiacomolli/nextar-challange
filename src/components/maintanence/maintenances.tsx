@@ -75,9 +75,15 @@ export const Maintenances = ({ type, displayFilter = false }: MaintenancesProps)
                     ? (
                         <div>
                             {
-                                listedMaintenances.map((maint, index) => (
+                                listedMaintenances.map((maint, index, array) => (
                                     index < filterParams.entries &&  (
-                                        <div key={index + maint.id} className={styles.maintenance}>
+                                        <div 
+                                            key={index + maint.id} 
+                                            className={`
+                                                ${styles.maintenance} 
+                                                ${( array.length < 1 || (index === filterParams.entries -1)) ? '' : styles.underline}
+                                            `}
+                                        >
                                             <span className={styles.agent}>{maint.agent}</span>
                                             <span>{maint.area}</span>
                                             <span className={styles.equipment}>{maint.equipment}</span>
@@ -88,7 +94,7 @@ export const Maintenances = ({ type, displayFilter = false }: MaintenancesProps)
                             }
                         </div>
                     )
-                    : 'Não existem dados para serem exibidos'
+                    : <p>Não existem dados para serem exibidos</p>
                 }
             </div>
         </div>

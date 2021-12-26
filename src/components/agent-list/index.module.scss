@@ -1,36 +1,45 @@
 .container {
-    max-width: var(--boxed-size);
     width: 100%;
-    
-    .title {
-        display: flex;
-        align-items: center;
-        gap: 20px; 
-        h1 {
-            font-size: 2rem;
-        }
-    }
+    max-width: var(--boxed-size);
+    margin: 0 auto;
 
-    .content {
-        height: 270px;
-        margin: 10px 0;
-        padding: 10px 20px;
-        overflow-y: scroll;
-        background-color: var(--background100);
+    .new {
+        margin: 30px 0;
+
+        > div {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            align-items: center;
+            gap: 5px;
+            margin: 10px 0;
     
-        .maintenance {
+            input {
+                padding: 10px 20px;
+                background-color: var(--background100);
+            }
+        }
+        
+    }
+    .cancel {
+        background: var(--background20);
+    }
+    .content {
+        background-color: var(--background100);
+
+        .agents {
+            width: 100%;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             gap: 15px;
-            padding: 5px 0;
-
+            padding: 10px 20px;
+            
             &.underline {
                 border-bottom: 1px solid var(--background90);
             }
-
+    
             &.header {
-                margin: -10px -20px 0 -20px;
                 padding: 10px 20px;
                 font-weight: 600;
                 position: sticky;
@@ -49,11 +58,14 @@
                 gap: 10px;
                 font-size: 0.875rem;
             }
-            .equipment {
-                flex: 1.5;
+            .agent {
+                flex: 1;
             }
             .date {
                 flex: 0.5;
+            }
+            .action {
+                flex: 0;
             }
         }
     }

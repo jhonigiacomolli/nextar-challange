@@ -1,0 +1,9 @@
+.header {
+    max-width: var(--boxed-size);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0 70px 0;
+}

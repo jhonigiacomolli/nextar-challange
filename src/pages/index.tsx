@@ -1,33 +1,30 @@
-import { AgentMaintenances } from 'components/maintenance-list-agent'
-import { Maintenances } from 'components/maintanence/maintenances'
-import { useGlobalContext } from 'context'
-import type { NextPage } from 'next'
-import { useEffect } from 'react'
-import styles from '../styles/home.module.scss'
+import { HomeButton } from 'components/button/home-button'
 import { Logomarca } from 'components/logo'
-import { getAgents, getMaintenances } from 'global/api'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import styles from '../styles/home.module.scss'
+import agentIcon from 'assets/agent-icon.svg'
+import maintenanceIcon from 'assets/maintenance-icon.svg'
+import areaIcon from 'assets/area-icon.svg'
+import equipmentIcon from 'assets/equipment-icon.svg'
+import { Header } from 'components/header'
+import { useGlobalContext } from 'context'
 
 const Home: NextPage = () => {
-  const { loadMaintenances, loadAgents } = useGlobalContext()
+  const { agents } = useGlobalContext()
 
-  const getData = async () => {
-    const maintenances  = await getMaintenances()
-    const agents = await getAgents()
-
-    loadMaintenances(maintenances)
-    loadAgents(agents)
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
-
+  console.log(agents);
+  
   return (
     <div className={styles.container}>
-      <Logomarca />
-      <AgentMaintenances />
-      <Maintenances type='correction' displayFilter />
-      <Maintenances type='preventive' />
+      <Header />
+      <div className={styles.content}>
+        <HomeButton title="Manutenções" link='/manutencoes' icon={maintenanceIcon} />
+        <HomeButton title="Agentes" link='/agentes' icon={agentIcon} />
+        <HomeButton title="Áreas" link='/areas' icon={areaIcon} />
+        <HomeButton title="Equipamentos" link='/equipamentos' icon={equipmentIcon} />
+      </div>
     </div>
   )
 }

@@ -26,3 +26,19 @@ export type TYPE_FilterParams = {
     ordenation: TYPE_Ordenation
     search: string
 }
+export type TYPE_Equipments = {
+    id: number
+    description: string
+    register: string
+    model: string
+    locatedArea: string
+    nextMaintenance: string
+    maintenances: string[]
+    observations: string
+}
+export type TYPE_Area = {
+    id: number
+    name: string
+    equipmentList: string[]
+    block: string
+}
