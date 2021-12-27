@@ -1,4 +1,4 @@
-import { createAgent, createArea, createEquipment, editAgent, editArea, editEquipment, removeAgent, removeArea, removeEquipment } from "global/api";
+import { createAgent, createArea, createEquipment, createMaintenance, editAgent, editArea, editEquipment, editMaintenance, removeAgent, removeArea, removeEquipment, removeMaintenance } from "global/api";
 import { TYPE_Equipments, TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation, TYPE_Area } from "global/types";
 import { createContext, ReactNode, useContext, useState } from "react";
 
@@ -123,7 +123,9 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
         ))
     }
     const deleteArea = async (area: TYPE_Area) => {
-        const result = await removeArea(area.id)        
+        const result = await removeArea(area.id)   
+        console.log(result);
+             
         result.status === 200 && setAreas(old => old.filter(item => item.id !== area.id))
     }
 
@@ -131,18 +133,26 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
     const loadMaintenances = (maintenances: Type_Maintenance[]) => {
         setMaintenances(maintenances)
     }
-    const newMaintenances = (maintenance: Type_Maintenance) => {
-        setMaintenances(old => [
+    const newMaintenances = async (maintenance: Type_Maintenance) => {
+        const result = await createMaintenance(maintenance)
+        const newMaintenance: Type_Maintenance = await result.json()
+        console.log(newMaintenance, result);
+        
+        result.status === 201 && setMaintenances(old => [
             ...old,
-            maintenance
+            newMaintenance
         ])
     }
-    const updateMaintenances = (maintenance: Type_Maintenance) => {
-        setMaintenances(old => old.map(item => item.id === maintenance.id ? maintenance : item 
+    const updateMaintenances = async (maintenance: Type_Maintenance) => {
+        const result = await editMaintenance(maintenance)
+        const newMaintenance: Type_Maintenance = await result.json()
+
+        result.status === 200 && setMaintenances(old => old.map(item => item.id === maintenance.id ? newMaintenance : item 
         ))
     }
-    const deleteMaintenances = (maintenance: Type_Maintenance) => {
-        setMaintenances(old => old.filter(item => item.id !== maintenance.id))
+    const deleteMaintenances = async (maintenance: Type_Maintenance) => {
+        const result = await removeMaintenance(maintenance.id)       
+        result.status === 200 && setMaintenances(old => old.filter(item => item.id !== maintenance.id))
     }
 
     //Filter

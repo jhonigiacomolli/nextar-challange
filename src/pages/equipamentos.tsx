@@ -27,6 +27,7 @@ const Equipments = () => {
         const result = await getMaintenances()        
         loadMaintenances(result)
     }
+    
     return (
         <div className={styles.container}>
             <Header navigation/>

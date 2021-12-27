@@ -1,0 +1,42 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    background-color: var(--background-overlay);
+    .content {
+        width: 100%;
+        max-width: var(--boxed-size);
+        max-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px;
+        background-color: var(--background100);
+
+        label {
+            input, select {
+                width: 100%;
+                padding: 10px 20px;
+                background-color: var(--background90);
+            }
+        }
+
+        .actions {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+            margin: 10px 0;
+            .cancel {
+                background: var(--background20);
+            }
+        }
+    }
+}

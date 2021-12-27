@@ -6,6 +6,12 @@
         display: flex;
         align-items: center;
         gap: 20px;
+
+        > div {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         h1 {
             font-size: 2rem;
         }
@@ -59,6 +65,11 @@
             .date {
                 flex: 0.5;
             }
+        }
+
+        .action {
+            padding: 10px;
+            margin: 0 -6px;
         }
     }
 }
