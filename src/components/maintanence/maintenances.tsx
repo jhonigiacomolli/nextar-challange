@@ -8,7 +8,7 @@ import maintenanceIcon from 'assets/maintenance-icon.svg'
 import Image from 'next/image'
 
 type MaintenancesProps = {
-    type: 'correction' | 'preventive'
+    type: 'corretiva' | 'preventiva'
     displayFilter?: boolean
 }
 
@@ -61,8 +61,8 @@ export const Maintenances = ({ type, displayFilter = false }: MaintenancesProps)
             {
                 displayFilter && <Filter kind='maintenance-search' />
             }
-            <h2 className={styles.subtitle}>{type === 'correction' && 'Lista Manutenções Corretivas'}</h2>
-            <h2 className={styles.subtitle}>{type === 'preventive' && 'Lista Manutenções Preventivas'}</h2>
+            <h2 className={styles.subtitle}>{type === 'corretiva' && 'Lista Manutenções Corretivas'}</h2>
+            <h2 className={styles.subtitle}>{type === 'preventiva' && 'Lista Manutenções Preventivas'}</h2>
             <div className={styles.content}>
                 <div className={`${styles.maintenance} ${styles.header}`}>
                     <span className={styles.agent}>Agente</span>

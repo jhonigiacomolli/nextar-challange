@@ -1,4 +1,4 @@
-import { AgentList } from "components/agent-list"
+import { AgentList } from "components/agent"
 import { Header } from "components/header"
 import { useGlobalContext } from "context"
 import { getAgents } from "global/api"

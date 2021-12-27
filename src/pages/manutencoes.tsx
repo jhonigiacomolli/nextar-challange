@@ -30,8 +30,8 @@ const MaintenancesPage = () => {
     <div className={styles.container}>
       <Header navigation/>
       <AgentMaintenances />
-      <Maintenances type='correction' displayFilter />
-      <Maintenances type='preventive' />
+      <Maintenances type='corretiva' displayFilter />
+      <Maintenances type='preventiva' />
     </div>
   )
 }

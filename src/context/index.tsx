@@ -1,5 +1,5 @@
-import { createAgent, createEquipment, editAgent, editEquipment, removeAgent, removeEquipment } from "global/api";
-import { TYPE_Equipments, TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation } from "global/types";
+import { createAgent, createArea, createEquipment, editAgent, editArea, editEquipment, removeAgent, removeArea, removeEquipment } from "global/api";
+import { TYPE_Equipments, TYPE_Agent, TYPE_FilterParams, Type_Maintenance, TYPE_MaintenanceStatus, TYPE_MaintenanceType, TYPE_Ordenation, TYPE_Area } from "global/types";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type GlobalContextProviderProps = {
@@ -31,13 +31,18 @@ type GlobalContextProps = {
     newEquipment: (equipement: TYPE_Equipments) => void
     updateEquipment: (equipement: TYPE_Equipments) => void
     deleteEquipment: (equipement: TYPE_Equipments) => void
+    areas: TYPE_Area[]
+    loadAreas: (areas: TYPE_Area[]) => void
+    newArea: (area: TYPE_Area) => void
+    updateArea: (area: TYPE_Area) => void
+    deleteArea: (area: TYPE_Area) => void
 }
 
 const initialFilterParams: TYPE_FilterParams = {
     entries: 5,
     ordenation: 'old',
     agent: { id: 0, agent: '' },
-    type: 'correction',
+    type: 'corretiva',
     status: 'Aberta',
     search: '',
 }
@@ -48,6 +53,7 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
     const [agents, setAgents] = useState<TYPE_Agent[]>([])
     const [maintenances, setMaintenances] = useState<Type_Maintenance[]>([])
     const [equipments, setEquipments] = useState<TYPE_Equipments[]>([])
+    const [areas, setAreas] = useState<TYPE_Area[]>([])
 
     //Agents
     const loadAgents = (agents: TYPE_Agent[]) => {
@@ -97,6 +103,30 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
         result.status === 200 && setEquipments(old => old.filter(item => item.id !== equipment.id))
     }
 
+    //areas
+    const loadAreas = (area: TYPE_Area[]) => {
+        setAreas(area)
+    }
+    const newArea = async (area: TYPE_Area) => {
+        const result = await createArea(area)
+        const newArea: TYPE_Area = await result.json()
+
+        result.status === 201 && setAreas(old => [
+            ...old,
+            newArea
+        ])
+    }
+    const updateArea = async (area: TYPE_Area) => {
+        const result = await editArea(area)
+        
+        result.status === 200 && setAreas(old => old.map(item => item.id === area.id ? area : item 
+        ))
+    }
+    const deleteArea = async (area: TYPE_Area) => {
+        const result = await removeArea(area.id)        
+        result.status === 200 && setAreas(old => old.filter(item => item.id !== area.id))
+    }
+
     //Maintenances
     const loadMaintenances = (maintenances: Type_Maintenance[]) => {
         setMaintenances(maintenances)
@@ -142,6 +172,11 @@ export const GlobalContextProvider = ({ children }:GlobalContextProviderProps) =
             newEquipment,
             updateEquipment,
             deleteEquipment,
+            areas,
+            loadAreas,
+            newArea,
+            updateArea,
+            deleteArea,
         }} >
             { children }
         </GlobalContext.Provider>

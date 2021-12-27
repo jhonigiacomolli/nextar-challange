@@ -1,4 +1,4 @@
-export type TYPE_MaintenanceType = 'correction' | 'preventive'
+export type TYPE_MaintenanceType = 'corretiva' | 'preventiva'
 
 export type TYPE_MaintenanceStatus = 'Aberta' | 'Fechada'
 
@@ -39,6 +39,5 @@ export type TYPE_Equipments = {
 export type TYPE_Area = {
     id: number
     name: string
-    equipmentList: string[]
     block: string
 }

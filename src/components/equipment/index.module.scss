@@ -20,17 +20,20 @@
 
             .modalContent {
                 width: 100vw;
-                max-height: 70vh;
+                max-height: 100vh;
                 max-width: var(--boxed-size);
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
                 background-color: var(--background100);
                 box-sizing: border-box;
                 padding: 70px 50px 20px 50px;
 
-                input, textarea {
+                h3 {
+                    margin: 0 0 5px 0;
+                }
+                input, textarea, select {
                     box-sizing: border-box;
                     width: 100%;
                     max-width: var(--boxed-size);
@@ -41,6 +44,17 @@
                 textarea {
                     height: 100%;
                     max-height: 150px;
+                    font-family: sans-serif;
+                    font-size: 0.875rem;
+                }
+
+                .maintenanceList {
+                    overflow-x: scroll;
+                    max-height: 200px;
+                    border-radius: 5px;
+                    padding: 0 20px;
+                    color: var(--text90);
+                    background-color: var(--background90);
                 }
     
                 .actions {
@@ -101,6 +115,9 @@
             }
             .action {
                 flex: 0;
+                padding: 10px;
+                margin: 0 -6px;
+                font-size: 0.875rem;
             }
         }
     }

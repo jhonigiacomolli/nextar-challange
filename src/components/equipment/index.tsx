@@ -7,7 +7,7 @@ import styles from './index.module.scss'
 type ChangeOption = 'description' | 'locatedArea' | 'maintenances' | 'model' | 'nextMaintenance' | 'observations' | 'register'
 
 export const EquipmentList = () => {
-    const { equipments, newEquipment, updateEquipment, deleteEquipment } = useGlobalContext()
+    const { areas, maintenances, equipments, newEquipment, updateEquipment, deleteEquipment } = useGlobalContext()
     const [equipment, setEquipment] = useState({
         id: 0,
         description: '',
@@ -18,10 +18,10 @@ export const EquipmentList = () => {
         observations: '',
         register: ''
     } as TYPE_Equipments)
-    const [state, setState] = useState<'new' | 'edit'>('new')
+    const [state, setState] = useState<'new' | 'edit' | 'details'>('new')
     const [modal, setModal] = useState(false)
 
-    const handleChangeEquipment = (type: ChangeOption, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChangeEquipment = (type: ChangeOption, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const value = event.target.value
 
         if(state === 'edit') {
@@ -72,6 +72,12 @@ export const EquipmentList = () => {
         deleteEquipment(equipments.filter(ag => ag.id === id)[0])
     }
 
+    const handleDisplayDetails = (equipment: TYPE_Equipments) => {
+        setEquipment(equipment)
+        setState('details')
+        setModal(true)
+    }
+
     const handleCancelEdit= () => {
         setEquipment({
             id: equipments.length,  
@@ -94,33 +100,64 @@ export const EquipmentList = () => {
                 {modal && (
                     <div className={styles.modal}>
                         <div className={styles.modalContent}>
+                            {state === 'new' && <h3>Adicionar equipamento</h3>}
+                            {state === 'edit' && <h3>Editando: {equipment.description}</h3>}
                             <div>
                                 <label htmlFor="description">
                                     Descrição
-                                    <input id='description' type="text" value={equipment.description} onChange={(e) => handleChangeEquipment('description', e)}/>
-                                </label>
-                                <label htmlFor="area">
-                                    Área
-                                    <input id='area' type="text" value={equipment.locatedArea} onChange={(e) => handleChangeEquipment('locatedArea', e)}/>
+                                    <input id='description' disabled={state === 'details'} type="text" value={equipment.description} onChange={(e) => handleChangeEquipment('description', e)}/>
                                 </label>
                                 <label htmlFor="register">
-                                    Registor
-                                    <input id='registeer' type="text" value={equipment.register} onChange={(e) => handleChangeEquipment('register', e)}/>
-                                </label>
-                                <label htmlFor="next-maintenance">
-                                    Próxima Manutenção
-                                    <input id='next-maintenance' type="text" value={equipment.nextMaintenance} onChange={(e) => handleChangeEquipment('nextMaintenance', e)}/>
+                                    Registro
+                                    <input id='registeer' disabled={state === 'details'} type="text" value={equipment.register} onChange={(e) => handleChangeEquipment('register', e)}/>
                                 </label>
                                 <label htmlFor="model">
                                     Modelo
-                                    <input id='model' type="text" value={equipment.model} onChange={(e) => handleChangeEquipment('model', e)}/>
+                                    <input id='model' disabled={state === 'details'} type="text" value={equipment.model} onChange={(e) => handleChangeEquipment('model', e)}/>
                                 </label>
+                                <label htmlFor="area">
+                                    Área
+                                    <select name="area" id="area" disabled={state === 'details'} value={equipment.locatedArea} onChange={(e) => handleChangeEquipment('locatedArea', e)}>
+                                        <option value="empty">Selecione...</option>
+                                        {
+                                            areas.map(area => (
+                                                <option key={'area-' + area.id} value={`${area.name}-${area.block}`}>
+                                                    {`${area.name} - ${area.block}`}
+                                                </option>
+                                            ))
+                                        }
+                                    </select>
+                                </label>
+                                <label htmlFor="next-maintenance">
+                                    Próxima Manutenção
+                                    <input id='next-maintenance' disabled={state === 'details'} type="date" value={equipment.nextMaintenance} onChange={(e) => handleChangeEquipment('nextMaintenance', e)}/>
+                                </label>
+                                    Manutenções realizadas neste equipamento:
+                                    {
+                                        state === 'details' && (
+                                            <div className={styles.maintenanceList}>
+                                                {
+                                                    maintenances
+                                                    .filter(maint => maint.equipment === equipment.description && maint.status === 'Fechada')
+                                                    .map(maint => (
+                                                        <p key={'maint-lst' + maint.id}>
+                                                            { '- ' } 
+                                                            <b>{ maint.type }</b> 
+                                                            {', ' + maint.date + ', ' + maint.agent }
+                                                        </p>
+                                                    ))
+                                                }
+                                            </div>
+                                        )
+                                    }
                                 <label htmlFor="observations">
                                     Observações
-                                    <textarea id='observations' value={equipment.observations} onChange={(e) => handleChangeEquipment('observations', e)}/>
+                                    <textarea id='observations' disabled={state === 'details'} value={equipment.observations} onChange={(e) => handleChangeEquipment('observations', e)}/>
                                 </label>
                                 <div className={styles.actions}>
-                                    <PrimaryButton title={state === 'new' ? 'Adicionar' : 'Salvar'} link='' onClick={handleCreateEquipment} />
+                                    {state !== 'details' && (
+                                        <PrimaryButton title={state === 'new' ? 'Adicionar' : 'Salvar'} link='' onClick={handleCreateEquipment} />
+                                    )}
                                     <PrimaryButton className={styles.cancel} title='Cancelar' link='' onClick={handleCancelEdit}/>
                                 </div>
                             </div>
@@ -146,6 +183,11 @@ export const EquipmentList = () => {
                                         `}
                                     >
                                         <span className={styles.equipment}>{ag.description}</span>
+                                        <PrimaryButton 
+                                            className={styles.action} 
+                                            title='Detalhes' 
+                                            onClick={() => handleDisplayDetails(ag)} 
+                                        />
                                         <PrimaryButton 
                                             className={styles.action} 
                                             title='Editar' 

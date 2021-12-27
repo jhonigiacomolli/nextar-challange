@@ -1,4 +1,4 @@
-import { TYPE_Agent, TYPE_Equipments } from "./types"
+import { TYPE_Agent, TYPE_Area, TYPE_Equipments } from "./types"
 
 const baseUrl = 'http://localhost:3001'
 
@@ -39,13 +39,12 @@ const editAgent = async (agent: TYPE_Agent) => {
     },
     body: JSON.stringify(agent)
   })
-  console.log(result);
   
   return await result
 }
 
 const removeAgent = async (id: number) => {
-  const result = await fetch(baseUrl +  `/agents/${id}`, {
+  const result = await fetch(baseUrl +  '/agents/' + id, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -61,6 +60,39 @@ const getAreas = async () => {
     }
   })
   return await result.json()
+}
+
+const createArea = async (area: TYPE_Area) => {
+  const result = await fetch(baseUrl +  '/areas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(area)
+  })
+    
+  return await result
+}
+const editArea = async (area: TYPE_Area) => {
+  const result = await fetch(baseUrl +  '/areas/' + area.id, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(area)
+  })
+  
+  return await result
+}
+
+const removeArea = async (id: number) => {
+  const result = await fetch(baseUrl +  '/areas/' + id, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  return await result
 }
 
 const getEquipments = async () => {
@@ -112,6 +144,9 @@ export {
   editAgent, 
   removeAgent, 
   getAreas, 
+  createArea,
+  editArea,
+  removeArea,
   getEquipments, 
   createEquipment, 
   editEquipment, 

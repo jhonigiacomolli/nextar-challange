@@ -92,8 +92,8 @@ export const Filter = ({ kind }: FilterProps) => {
                     <div className={styles.filter}>
                         <p>Tipo:</p>
                         <select name="select-maintenance-type" id="select-maintenance-type" onChange={handleChangeType}>
-                            <option value="correction">Corretiva</option>
-                            <option value="preventive">Preventiva</option>
+                            <option value="corretiva">Corretiva</option>
+                            <option value="preventiva">Preventiva</option>
                         </select>
                     </div>
                 )
